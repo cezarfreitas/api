@@ -1,4 +1,4 @@
-# Dockerfile corrigido para evitar conflitos npm/pnpm
+# Dockerfile corrigido - Node 20 LTS para compatibilidade com Vite 7+
 FROM node:20-alpine AS base
 
 # Dependências do sistema
@@ -21,8 +21,11 @@ RUN rm -rf node_modules package-lock.json && \
 # Copiar código fonte
 COPY . .
 
-# Build da aplicação
+# Build da aplicação (deve gerar dist/server/node-build.mjs)
 RUN pnpm build
+
+# Verificar se build foi gerado corretamente
+RUN ls -la dist/server/ || (echo "❌ Build falhou - dist/server não existe" && exit 1)
 
 # Configurar ambiente de produção
 ENV NODE_ENV=production
