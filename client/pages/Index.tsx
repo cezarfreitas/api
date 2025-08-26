@@ -150,8 +150,9 @@ CMD ["node", "dist/server/node-build.mjs"]
             </div>
 
             <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded text-sm">
-              ✅ <strong>Erro "vite: not found" CORRIGIDO!</strong> Dockerfile multi-stage
-              agora instala devDependencies para build e otimiza imagem final.
+              ✅ <strong>Erro "vite: not found" CORRIGIDO!</strong> Dockerfile
+              multi-stage agora instala devDependencies para build e otimiza
+              imagem final.
             </div>
 
             <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded text-sm">

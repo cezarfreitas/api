@@ -7,6 +7,7 @@
 **Causa:** Dockerfile anterior usava `--prod` mas o Vite é devDependency necessária para build.
 
 **✅ Solução:** Novo Dockerfile multi-stage:
+
 - Stage 1: instala todas as deps + faz build
 - Stage 2: apenas deps de produção + artifacts
 
