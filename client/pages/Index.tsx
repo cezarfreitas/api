@@ -150,6 +150,10 @@ CMD ["node", "dist/server/node-build.mjs"]
                 Status: <span className="font-medium">{status ?? "—"}</span>
               </div>
             </div>
+
+            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded text-sm">
+              ✅ <strong>Problemas de instalação corrigidos!</strong> Dockerfile atualizado e guia <code>INSTALL.md</code> adicionado para resolver conflitos npm/pnpm.
+            </div>
           </div>
 
           <aside className="bg-white border rounded-lg p-6 shadow-sm">
