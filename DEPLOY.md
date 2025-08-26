@@ -79,7 +79,10 @@ services:
 docker compose up -d
 ```
 
-## 🔧 Variables de ambiente necessárias
+## 🔧 Variáveis de ambiente necessárias
+
+- VITE_API_URL (opcional): URL base da API para o frontend quando API e frontend não estiverem no mesmo host.
+  - Ex.: VITE_API_URL="https://api.seu-dominio.com"
 
 ```bash
 # Para deploy.sh
