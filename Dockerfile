@@ -14,7 +14,7 @@ WORKDIR /app
 # Copiar package.json primeiro para cache de camadas
 COPY package.json pnpm-lock.yaml* ./
 
-# Limpar qualquer cache/lock existente e instalar dependências
+# Limpar qualquer cache/lock existente e instalar TODAS as dependências (incluindo devDependencies para build)
 RUN rm -rf node_modules package-lock.json && \
     pnpm install --frozen-lockfile
 
