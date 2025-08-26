@@ -31,9 +31,9 @@ pnpm install --frozen-lockfile
 echo "����️ Build da aplicação..."
 pnpm build
 
-# Build Docker com cache busting
-echo "🐳 Construindo imagem Docker..."
-docker build --no-cache -t "$FULL_IMAGE" .
+# Build Docker sem cache para garantir build limpo
+echo "🐳 Construindo imagem Docker (multi-stage, sem cache)..."
+docker build --no-cache --target production -t "$FULL_IMAGE" .
 
 # Login e push (se credenciais fornecidas)
 if [[ -n "${REGISTRY_USER-}" && -n "${REGISTRY_PASSWORD-}" ]]; then
