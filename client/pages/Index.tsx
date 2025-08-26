@@ -36,8 +36,8 @@ WORKDIR /app
 # Copiar package.json e arquivos de build primeiro para aproveitar cache
 COPY package.json pnpm-lock.yaml* ./
 
-# Instalar dependências
-RUN pnpm install --frozen-lockfile --prod
+# Instalar dependências (incluindo devDependencies para build)
+RUN pnpm install --frozen-lockfile
 
 # Copiar todo o projeto
 COPY . .
