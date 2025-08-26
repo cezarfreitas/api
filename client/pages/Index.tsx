@@ -22,32 +22,30 @@ export default function Index() {
     }
   };
 
-  const dockerfile = `# Dockerfile para rodar a API em um container (Node 20 + pnpm)
-FROM node:20-alpine AS base
-
-# Instalar dependências do sistema necessárias para compilar dependências nativas
+  const dockerfile = `# Multi-stage Dockerfile otimizado
+FROM node:20-alpine AS builder
 RUN apk add --no-cache python3 build-base git
-
-# Habilita corepack/pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
-
 WORKDIR /app
-
-# Copiar package.json e arquivos de build primeiro para aproveitar cache
 COPY package.json pnpm-lock.yaml* ./
-
-# Instalar dependências (incluindo devDependencies para build)
 RUN pnpm install --frozen-lockfile
-
-# Copiar todo o projeto
 COPY . .
-
-# Build (se o projeto tiver step de build para cliente/servidor)
 RUN pnpm build
 
-# Executar em modo produção
+FROM node:20-alpine AS production
+RUN apk add --no-cache dumb-init
+RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
+RUN corepack enable && corepack prepare pnpm@latest --activate
+WORKDIR /app
+COPY package.json pnpm-lock.yaml* ./
+RUN pnpm install --frozen-lockfile --prod
+COPY --from=builder /app/dist ./dist
+RUN chown -R nextjs:nodejs /app
+USER nextjs
 ENV NODE_ENV=production
+ENV PORT=8080
 EXPOSE 8080
+ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "dist/server/node-build.mjs"]
 `;
 
