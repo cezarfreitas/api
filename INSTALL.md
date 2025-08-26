@@ -57,6 +57,26 @@ NODE_ENV=production PORT=8080 node dist/server/node-build.mjs
 
 ## 🔧 Troubleshooting
 
+### Erro "Unsupported engine" (Node 18.x):
+```bash
+# Atualizar para Node 20+ (recomendado: usar nvm)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.bashrc
+nvm install 20
+nvm use 20
+nvm alias default 20
+
+# Verificar versão
+node --version  # deve ser 20.19.0+
+```
+
+### Erro "Cannot find module '/code/dist/server/node-build.mjs'":
+```bash
+# Certificar que o build foi executado
+pnpm build
+ls -la dist/server/  # deve mostrar node-build.mjs
+```
+
 ### Erro "pnpm: command not found":
 ```bash
 npm install -g pnpm --force
