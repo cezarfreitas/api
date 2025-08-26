@@ -1,0 +1,11 @@
+# Docker Compose template — substitua ${IMAGE} pelo nome da imagem (ex: meu-usuario/minha-api:latest)
+version: "3.8"
+services:
+  api:
+    image: ${IMAGE}
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
