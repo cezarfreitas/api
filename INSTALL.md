@@ -3,7 +3,6 @@
 ## 🐳 Via Docker (Recomendado)
 
 ### Build e execução local:
-
 ```bash
 # Limpar ambiente
 rm -rf node_modules package-lock.json dist/
@@ -18,8 +17,16 @@ docker run -d --name api-container -p 8080:8080 --restart=unless-stopped minha-a
 curl http://localhost:8080/api/ping
 ```
 
-### Deploy para registry + VPS:
+### Variável de ambiente (opcional): VITE_API_URL
+Defina a URL base da API para o frontend quando a API estiver em outro host/domínio.
+```bash
+# Exemplo em produção
+export VITE_API_URL="https://api.seu-dominio.com"
+# Em Docker, passe via --env ou arquivo .env
+```
+Frontend usará `${VITE_API_URL}/api/...` (se definido) ou caminho relativo `/api/...`.
 
+### Deploy para registry + VPS:
 ```bash
 # Build e push
 docker build -t seu-usuario/minha-api:latest .
@@ -33,12 +40,10 @@ docker run -d --name api-container -p 8080:8080 --restart=unless-stopped seu-usu
 ## 🛠️ Instalação Nativa (Node.js)
 
 ### Pré-requisitos:
-
 - **Node.js 20.19.0+** (obrigatório - Vite 7+ não funciona com Node 18)
 - pnpm (recomendado) ou npm 10+
 
 ### Passos:
-
 ```bash
 # 1. Limpar cache/dependências antigas
 rm -rf node_modules package-lock.json dist/
@@ -62,7 +67,6 @@ NODE_ENV=production PORT=8080 node dist/server/node-build.mjs
 ## 🔧 Troubleshooting
 
 ### Erro "Unsupported engine" (Node 18.x):
-
 ```bash
 # Atualizar para Node 20+ (recomendado: usar nvm)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
@@ -76,7 +80,6 @@ node --version  # deve ser 20.19.0+
 ```
 
 ### Erro "Cannot find module '/code/dist/server/node-build.mjs'":
-
 ```bash
 # Certificar que o build foi executado
 pnpm build
@@ -84,7 +87,6 @@ ls -la dist/server/  # deve mostrar node-build.mjs
 ```
 
 ### Erro "pnpm: command not found":
-
 ```bash
 npm install -g pnpm --force
 # ou
@@ -92,14 +94,12 @@ corepack enable && corepack prepare pnpm@latest --activate
 ```
 
 ### Erro "Tracker idealTree already exists":
-
 ```bash
 rm -rf node_modules package-lock.json /root/.npm/_locks
 npm cache clean --force
 ```
 
 ### Conflitos binários (pnpx já existe):
-
 ```bash
 rm -f /root/.nvm/versions/node/*/bin/pnpx
 rm -f /root/.nvm/versions/node/*/bin/pnpm
@@ -126,7 +126,6 @@ export SSH_USER="root"
 ## 📋 Systemd Service (Linux)
 
 Criar `/etc/systemd/system/minha-api.service`:
-
 ```ini
 [Unit]
 Description=Minha API Backend
