@@ -1,18 +1,16 @@
 import { DemoResponse } from "@shared/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Index() {
   const [status, setStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    checkStatus();
-  }, []);
 
   const checkStatus = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/ping");
+      const apiBase = (import.meta as any).env?.VITE_API_URL ?? "";
+      const res = await fetch(`${apiBase}/api/ping`, { cache: "no-store" });
       const json = await res.json();
       setStatus(json?.message ?? "OK");
     } catch (e) {
