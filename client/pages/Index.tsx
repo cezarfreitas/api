@@ -152,7 +152,9 @@ CMD ["node", "dist/server/node-build.mjs"]
             </div>
 
             <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded text-sm">
-              ✅ <strong>Problemas de instalação corrigidos!</strong> Dockerfile atualizado e guia <code>INSTALL.md</code> adicionado para resolver conflitos npm/pnpm.
+              ✅ <strong>Problemas de instalação corrigidos!</strong> Dockerfile
+              atualizado e guia <code>INSTALL.md</code> adicionado para resolver
+              conflitos npm/pnpm.
             </div>
           </div>
 
