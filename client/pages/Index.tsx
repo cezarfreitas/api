@@ -5,7 +5,6 @@ export default function Index() {
   const [status, setStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-
   const checkStatus = async () => {
     setLoading(true);
     try {
