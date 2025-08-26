@@ -32,8 +32,8 @@ IMAGE_NAME=meu-usuario/minha-api ./deploy.sh
 # Build local
 pnpm install && pnpm build
 
-# Build Docker
-docker build -t meu-usuario/minha-api:latest .
+# Build Docker (multi-stage, corrigido para vite)
+docker build --no-cache --target production -t meu-usuario/minha-api:latest .
 
 # Push para registry
 docker login
