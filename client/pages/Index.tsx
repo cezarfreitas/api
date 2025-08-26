@@ -152,11 +152,15 @@ CMD ["node", "dist/server/node-build.mjs"]
             </div>
 
             <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm">
-              ⚠️ <strong>Requer Node.js 20.19.0+</strong> - Vite 7+ não funciona com Node 18. Use <code>nvm install 20</code> ou atualize o Dockerfile.
+              ⚠️ <strong>Requer Node.js 20.19.0+</strong> - Vite 7+ não funciona
+              com Node 18. Use <code>nvm install 20</code> ou atualize o
+              Dockerfile.
             </div>
 
             <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded text-sm">
-              ✅ <strong>Build funcionando!</strong> Dockerfile corrigido para Node 20 LTS. Veja <code>INSTALL.md</code> para instalação e <code>DEPLOY.md</code> para troubleshooting de deploy.
+              ✅ <strong>Build funcionando!</strong> Dockerfile corrigido para
+              Node 20 LTS. Veja <code>INSTALL.md</code> para instalação e{" "}
+              <code>DEPLOY.md</code> para troubleshooting de deploy.
             </div>
           </div>
 

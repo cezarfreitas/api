@@ -7,6 +7,7 @@
 **Soluções:**
 
 ### 1️⃣ Usar path correto no Docker:
+
 ```bash
 # ❌ Errado:
 docker exec -i container bash -c 'chmod +x deploy.sh && exec /deploy.sh'
@@ -18,6 +19,7 @@ docker exec -i container bash -c 'chmod +x /app/scripts/deploy.sh && exec /app/s
 ```
 
 ### 2️⃣ Executar fora do container:
+
 ```bash
 # No host (fora do container)
 chmod +x deploy.sh scripts/deploy.sh
@@ -25,6 +27,7 @@ IMAGE_NAME=meu-usuario/minha-api ./deploy.sh
 ```
 
 ### 3️⃣ Build e deploy manual:
+
 ```bash
 # Build local
 pnpm install && pnpm build
@@ -41,6 +44,7 @@ ssh usuario@vps.com "docker pull meu-usuario/minha-api:latest && docker stop api
 ```
 
 ### 4️⃣ Deploy direto via Docker Compose:
+
 ```yaml
 # docker-compose.yml
 version: "3.8"
@@ -78,6 +82,7 @@ export SSH_PORT="22"
 ## 🚀 Comandos rápidos
 
 ### Deploy local:
+
 ```bash
 # Build e teste local
 docker build -t minha-api .
@@ -88,12 +93,14 @@ curl http://localhost:8080/api/ping
 ```
 
 ### Deploy para registry:
+
 ```bash
 docker tag minha-api meu-usuario/minha-api:latest
 docker push meu-usuario/minha-api:latest
 ```
 
 ### Deploy no VPS via SSH:
+
 ```bash
 ssh usuario@vps.com << 'EOF'
 docker pull meu-usuario/minha-api:latest
