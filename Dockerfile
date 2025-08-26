@@ -1,26 +1,33 @@
-# Dockerfile para executar a API em produção (Node 20 + pnpm)
+# Dockerfile corrigido para evitar conflitos npm/pnpm
 FROM node:20-alpine AS base
 
-# Dependências do sistema para compilar pacotes nativos
+# Dependências do sistema
 RUN apk add --no-cache python3 build-base git
 
-# Habilita corepack e pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Limpar npm cache e habilitar pnpm
+RUN npm cache clean --force && \
+    corepack enable && \
+    corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 
-# Copiar package.json primeiro para usar cache de camada
+# Copiar package.json primeiro para cache de camadas
 COPY package.json pnpm-lock.yaml* ./
 
-# Instalar dependências (apenas produção)
-RUN pnpm install --frozen-lockfile --prod
+# Limpar qualquer cache/lock existente e instalar dependências
+RUN rm -rf node_modules package-lock.json && \
+    pnpm install --frozen-lockfile
 
-# Copiar todo o código
+# Copiar código fonte
 COPY . .
 
-# Build (se houver passos de build para client/server)
+# Build da aplicação
 RUN pnpm build
 
+# Configurar ambiente de produção
 ENV NODE_ENV=production
+ENV PORT=8080
 EXPOSE 8080
+
+# Comando de execução
 CMD ["node", "dist/server/node-build.mjs"]
