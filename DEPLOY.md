@@ -1,5 +1,20 @@
 # Guia de Deploy - Troubleshooting
 
+## ❌ Erro: "vite: not found" (exit code 1)
+
+### Problema: devDependencies não instaladas no build Docker
+
+**Causa:** Dockerfile anterior usava `--prod` mas o Vite é devDependency necessária para build.
+
+**✅ Solução:** Novo Dockerfile multi-stage:
+- Stage 1: instala todas as deps + faz build
+- Stage 2: apenas deps de produção + artifacts
+
+```bash
+# Build corrigido
+docker build --no-cache --target production -t minha-api .
+```
+
 ## ❌ Erro: "Command failed with exit code 7"
 
 ### Problema: Script não encontrado ou sem permissão
